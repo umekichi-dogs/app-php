@@ -1,0 +1,20 @@
+version: '2'
+services:
+  # DB
+  mysql: # これは自由につけて良い名前
+    container_name: "mysql"
+    image: mysql:5.6
+    ports:
+      - '3306:3306' # デバッグ用に開けとく。SequelProなどで繋げるように
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  # php
+  php:
+    container_name: "php"
+    image: php:7.1-apache
+    ports:
+      - '8080:80'
+    volumes:
+      - ./html:/var/www/html
+    links:
+      - mysql
